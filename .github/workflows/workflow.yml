@@ -42,6 +42,11 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker build -t atividadesomativa2:latest .
+          docker tag atividadesomativa2 vmcfilho/atividadesomativa2:latest
+          echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+          docker push vmcfilho/atividadesomativa2:latest
 
       - name: Send Telegram's notification
         uses: appleboy/telegram-action@master
